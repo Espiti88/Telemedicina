@@ -13,7 +13,7 @@ public class AppointmentRepository {
     private Long idCounter = 1L;
 
     public Appointment createAppointment(String cedula, LocalDateTime fechaHora) {
-        Appointment appointment = new Appointment(idCounter++, cedula, fechaHora);
+        Appointment appointment = new Appointment(idCounter++, cedula, fechaHora, true); // Estado inicial: true
         appointments.add(appointment);
         return appointment;
     }
@@ -32,6 +32,15 @@ public class AppointmentRepository {
         Optional<Appointment> appointment = findById(id);
         if (appointment.isPresent()) {
             appointments.remove(appointment.get());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateAppointmentStatus(Long id, boolean estado) {
+        Optional<Appointment> appointment = findById(id);
+        if (appointment.isPresent()) {
+            appointment.get().setEstado(estado);
             return true;
         }
         return false;

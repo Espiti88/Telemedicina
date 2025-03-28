@@ -22,4 +22,8 @@ public class AppointmentService {
     public boolean deleteAppointment(Long id) {
         return appointmentRepository.deleteAppointmentById(id);
     }
+
+    public boolean updateAppointmentStatus(Long id, boolean estado) {
+        return appointmentRepository.updateAppointmentStatus(id, estado);
+    }
 }

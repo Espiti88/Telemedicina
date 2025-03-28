@@ -7,11 +7,13 @@ public class Appointment {
     private Long id;
     private String cedulaPaciente;
     private LocalDateTime fechaHora;
+    private boolean estado; // Nuevo atributo
 
-    public Appointment(Long id, String cedulaPaciente, LocalDateTime fechaHora) {
+    public Appointment(Long id, String cedulaPaciente, LocalDateTime fechaHora, boolean estado) {
         this.id = id;
         this.cedulaPaciente = cedulaPaciente;
         this.fechaHora = fechaHora;
+        this.estado = estado;
     }
 
     public Long getId() {
@@ -36,5 +38,13 @@ public class Appointment {
 
     public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

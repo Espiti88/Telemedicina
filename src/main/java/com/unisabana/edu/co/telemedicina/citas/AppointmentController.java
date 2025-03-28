@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/appointments")
@@ -32,6 +31,16 @@ public class AppointmentController {
         boolean isDeleted = appointmentService.deleteAppointment(id);
         if (isDeleted) {
             return ResponseEntity.ok("Cita eliminada exitosamente.");
+        } else {
+            return ResponseEntity.status(404).body("Cita no encontrada.");
+        }
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<String> updateAppointmentStatus(@PathVariable Long id, @RequestParam boolean estado) {
+        boolean isUpdated = appointmentService.updateAppointmentStatus(id, estado);
+        if (isUpdated) {
+            return ResponseEntity.ok("Estado de la cita actualizado exitosamente.");
         } else {
             return ResponseEntity.status(404).body("Cita no encontrada.");
         }

@@ -26,4 +26,8 @@ public class AppointmentService {
     public boolean updateAppointmentStatus(Long id, boolean estado) {
         return appointmentRepository.updateAppointmentStatus(id, estado);
     }
+
+    public List<Appointment> getAppointmentsByCedulaPaciente(String cedulaPaciente) {
+        return appointmentRepository.findByCedulaPaciente(cedulaPaciente);
+    }
 }

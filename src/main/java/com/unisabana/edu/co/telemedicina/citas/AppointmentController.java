@@ -1,7 +1,6 @@
 package com.unisabana.edu.co.telemedicina.citas;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,5 +43,11 @@ public class AppointmentController {
         } else {
             return ResponseEntity.status(404).body("Cita no encontrada.");
         }
+    }
+
+    @GetMapping("/patient/{cedulaPaciente}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByCedulaPaciente(@PathVariable String cedulaPaciente) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByCedulaPaciente(cedulaPaciente);
+        return ResponseEntity.ok(appointments);
     }
 }

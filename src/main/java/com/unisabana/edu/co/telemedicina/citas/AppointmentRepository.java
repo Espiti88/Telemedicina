@@ -45,4 +45,14 @@ public class AppointmentRepository {
         }
         return false;
     }
+
+    public List<Appointment> findByCedulaPaciente(String cedulaPaciente) {
+        List<Appointment> patientAppointments = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            if (appointment.getCedulaPaciente().equals(cedulaPaciente)) {
+                patientAppointments.add(appointment);
+            }
+        }
+        return patientAppointments;
+    }
 }

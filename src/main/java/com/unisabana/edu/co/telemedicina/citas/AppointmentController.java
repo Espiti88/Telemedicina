@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.unisabana.edu.co.telemedicina.medicamentos.MedicationOrderService;
+import com.unisabana.edu.co.telemedicina.tratamientos.TreatmentService;
+
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -13,6 +16,11 @@ public class AppointmentController {
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Autowired
+    private MedicationOrderService medicationOrderService;
+    @Autowired
+    private TreatmentService treatmentService;
 
     @PostMapping
     public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
@@ -60,4 +68,20 @@ public class AppointmentController {
             return ResponseEntity.status(404).body("Cita no encontrada.");
         }
     }
+
+    @PostMapping("/end-call/{id}")
+    public ResponseEntity<?> endCall(@PathVariable Long id, @RequestParam String cedulaPaciente) {
+        boolean success = appointmentService.updateAppointmentStatus(id, false);
+        if (!success) {
+            return ResponseEntity.status(404).body("Cita no encontrada.");
+        }
+
+        // Crear medicamentos y tratamientos aleatorios
+        medicationOrderService.createRandomMedicationOrder(cedulaPaciente);
+        treatmentService.createRandomTreatment(cedulaPaciente);
+
+        return ResponseEntity.ok("Llamada finalizada y datos generados exitosamente.");
+    }
+
+    
 }

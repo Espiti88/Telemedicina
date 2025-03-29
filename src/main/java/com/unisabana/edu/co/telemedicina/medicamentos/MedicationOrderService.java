@@ -16,6 +16,16 @@ public class MedicationOrderService {
         return medicationOrderRepository.createMedicationOrder(cedulaPaciente, medicamento, cantidad, indicaciones, fechaOrden);
     }
 
+    public MedicationOrder createRandomMedicationOrder(String cedulaPaciente) {
+        String[] medicamentos = {"Paracetamol", "Ibuprofeno", "Amoxicilina", "Metformina"};
+        String medicamento = medicamentos[(int) (Math.random() * medicamentos.length)];
+        int cantidad = (int) (Math.random() * 10) + 1;
+        String indicaciones = "Tomar 1 cada 8 horas";
+    
+        // Agregar LocalDate.now() como fechaOrden
+        return createMedicationOrder(cedulaPaciente, medicamento, cantidad, indicaciones, LocalDate.now());
+    }
+
     public List<MedicationOrder> getMedicationOrdersByCedulaPaciente(String cedulaPaciente) {
         return medicationOrderRepository.findByCedulaPaciente(cedulaPaciente);
     }

@@ -16,6 +16,15 @@ public class TreatmentService {
         return treatmentRepository.createTreatment(cedulaPaciente, descripcion, fechaInicio, fechaFin);
     }
 
+    public Treatment createRandomTreatment(String cedulaPaciente) {
+        String[] descripciones = {"Tratamiento para fiebre", "Tratamiento para dolor muscular", "Tratamiento para infección"};
+        String descripcion = descripciones[(int) (Math.random() * descripciones.length)];
+        LocalDate fechaInicio = LocalDate.now();
+        LocalDate fechaFin = fechaInicio.plusDays(7);
+
+        return createTreatment(cedulaPaciente, descripcion, fechaInicio, fechaFin);
+    }
+
     public List<Treatment> getTreatmentsByCedulaPaciente(String cedulaPaciente) {
         return treatmentRepository.findByCedulaPaciente(cedulaPaciente);
     }

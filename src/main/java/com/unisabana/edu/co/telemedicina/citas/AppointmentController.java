@@ -50,4 +50,14 @@ public class AppointmentController {
         List<Appointment> appointments = appointmentService.getAppointmentsByCedulaPaciente(cedulaPaciente);
         return ResponseEntity.ok(appointments);
     }
+
+    @PostMapping("/cancel/{id}")
+    public ResponseEntity<?> cancelAppointment(@PathVariable Long id) {
+        boolean success = appointmentService.updateAppointmentStatus(id, false);
+        if (success) {
+            return ResponseEntity.ok("Cita cancelada exitosamente.");
+        } else {
+            return ResponseEntity.status(404).body("Cita no encontrada.");
+        }
+    }
 }
